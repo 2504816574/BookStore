@@ -83,7 +83,7 @@ public class BookServlet extends BaseServlet {
         String id = request.getParameter("bookId");
         //调用service
         bookService.delBookById(id);
-        getAllBooks(request, response);
+        getBooksByPage(request, response);
         //response.sendRedirect();
 
     }
@@ -117,7 +117,7 @@ public class BookServlet extends BaseServlet {
             bookService.updateBook(new Book(Integer.parseInt(id), title, author, Double.parseDouble(price), Integer.parseInt(sales), Integer.parseInt(stock), null));
         }
         //跳转到图书管理页面
-        getAllBooks(request, response);
+        getBooksByPage(request, response);
     }
 
 

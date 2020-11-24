@@ -14,6 +14,13 @@
                         return false;
                     }
                 })
+                //实现确定按钮分页查询
+                $("#sub_page").click(function () {
+                    //取pageNo值
+                    var pageNo = $("#pn_input").val();
+                    //请求BookServlet
+                    location = "BookServlet?method=getBooksByPage&pageNo=" + pageNo;
+                });
             })
         </script>
     </head>
@@ -75,7 +82,7 @@
                 <c:if test="${requestScope.page.pageNo != requestScope.page.totalPageNo}">
                     <a href="/BookServlet?method=getBooksByPage&pageNo=${requestScope.page.totalPageNo}">末页</a> &nbsp
                 </c:if>
-                共${requestScope.page.totalPageNo}页，30条记录 &nbsp 到第 &nbsp <input value="1" name="pn" id="pn_input"/> &nbsp
+                共${requestScope.page.totalPageNo}页，${requestScope.page.totalRecord}条记录 &nbsp 到第 &nbsp <input value="1" name="pn" id="pn_input"/> &nbsp
                 页 &nbsp<input id="sub_page" type="button" value="确定">
             </div>
         </div>

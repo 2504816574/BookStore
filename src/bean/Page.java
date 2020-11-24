@@ -13,10 +13,10 @@ public class Page<T> {
     private List<T> list;                    //当前页的数据集合			dao,sql:SELECT * FROM books LIMIT (pageNo-1)*PAGE_SIZE,PAGE_SIZE
 
     public int getPageNo() {
-        if (pageNo < 1) {
+        if (pageNo < 1) {//如果输入小于0，默认1
             return 1;
         }
-        if (pageNo > getTotalPageNo()) {
+        if (pageNo > getTotalPageNo()) {//如果输入大于总页数，默认总页数（即最后一页）
             return getTotalPageNo();
         }
         return pageNo;
@@ -71,7 +71,6 @@ public class Page<T> {
 
     public Page() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     @Override
