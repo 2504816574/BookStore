@@ -11,7 +11,7 @@ import com.alibaba.druid.pool.DruidDataSourceFactory;
 /**
  * 获取连接和释放连接的工具类
  *
- * @author Chunsheng Zhang
+ * @author Ashen One
  */
 public class JDBCUtils {
     private static DataSource dataSource;

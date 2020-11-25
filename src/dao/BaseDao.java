@@ -16,7 +16,7 @@ import until.JDBCUtils;
 /**
  * 定义一个用来被继承的对数据库进行基本操作的Dao
  * 
- * @author Chunsheng Zhang
+ * @author Ashen One
  *
  * @param <T>
  */
