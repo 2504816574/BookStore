@@ -15,6 +15,8 @@ import java.util.List;
 /**
  * @Auther 董升
  * @Date 2020/11/20
+ *
+ * 使客户端页面和Book分离
  */
 @WebServlet(name = "BookServlet", urlPatterns = "/BookServlet")
 public class BookServlet extends BaseServlet {

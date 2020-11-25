@@ -6,6 +6,17 @@
         <meta charset="UTF-8">
         <title>书城首页</title>
         <%@ include file="../WEB-INF/include/base.jsp" %>
+        <script type="text/javascript">
+            $(function () {
+                //实现确定按钮分页查询
+                $("#sub_page").click(function () {
+                    //取pageNo值
+                    var pageNo = $("#pn_input").val();
+                    //请求BookServlet
+                    location = "/BookClientServlet?method=getBooksByPage&pageNo=" + pageNo;
+                });
+            })
+        </script>
     </head>
     <body>
         <div id="header">
@@ -62,22 +73,47 @@
             </div>
 
             <div id="page_nav">
-                <a href="#">首页</a>
-                <a href="#">上一页</a>
-                <a href="#">3</a>
-                【4】
-                <a href="#">5</a>
-                <a href="#">下一页</a>
-                <a href="#">末页</a>
-                共10页，30条记录 到第<input value="4" name="pn" id="pn_input"/>页
-                <input type="button" value="确定">
+                <c:choose>
+                    <%--[1]23     总页数小于3 --%>
+                    <c:when test="${page.totalPageNo<5 }">
+                        <c:set var="begin" value="1"></c:set>
+                        <c:set var="end" value="${page.totalPageNo }"></c:set>
+                    </c:when>
+                    <%--[1]2345     1[2]345     12[3]45
+                  总页数当前页大于等于5但当前页小于等于3--%>
+                    <c:when test="${page.pageNo<=3 }">
+                        <c:set var="begin" value="1"></c:set>
+                        <c:set var="end" value="5"></c:set>
+                    </c:when>
+                    <%--23[4]56     34[5]67     45[6]78
+                    总页数当前页大于等于5且当前页小于总页数减二--%>
+                    <c:when test="${page.pageNo>3 && page.pageNo <= page.totalPageNo-2}">
+                        <c:set var="begin" value="${page.pageNo-2 }"></c:set>
+                        <c:set var="end" value="${page.pageNo+2 }"></c:set>
+                    </c:when>
+                    <%--    456[7]8     4567[8]        总页数当前页大于等于5且当前页到后两页--%>
+                    <c:otherwise>
+                        <c:set var="begin" value="${page.totalPageNo-4 }"></c:set>
+                        <c:set var="end" value="${page.totalPageNo }"></c:set>
+                    </c:otherwise>
+                </c:choose>
+                <c:forEach var="i" begin="${begin}" end="${end}" step="1">
+                    <c:if test="${page.pageNo == i }">
+                        【${i}】
+                    </c:if>
+                    <c:if test="${page.pageNo != i }">
+                        <a href="/BookClientServlet?method=getBooksByPage&pageNo=${i}">${i}</a>
+                    </c:if>
+                </c:forEach>
+                共${requestScope.page.totalPageNo}页，${requestScope.page.totalRecord}条记录 &nbsp 到第 &nbsp
+                <input value="${requestScope.page.pageNo}" name="pn" id="pn_input"/>&nbsp 页 &nbsp
+                <input id="sub_page" type="button" value="确定">
             </div>
-
         </div>
         <div id="bottom">
-		<span>
-			尚硅谷书城.Copyright &copy;2015
-		</span>
+            <span>
+                尚硅谷书城.Copyright &copy;2015
+            </span>
         </div>
     </body>
 </html>
