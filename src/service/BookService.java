@@ -42,5 +42,19 @@ public interface BookService {
      */
     void updateBook(Book book);
 
+    /**
+     * 分页查询
+     * @param pageNo
+     * @return
+     */
     Page<Book> getBooksByPage(String pageNo);
+
+    /**
+     * 价格分页查询
+     * @param pageNo
+     * @param min
+     * @param max
+     * @return
+     */
+    Page<Book> getBooksByPageAndPrice(String pageNo,String min,String max);
 }

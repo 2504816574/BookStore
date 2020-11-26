@@ -56,4 +56,16 @@ public class BookDaoImpl extends BaseDao<Book> implements BookDao {
         page.setList(bookList);
         return page;
     }
+
+    @Override
+    public Page<Book> getBooksByPageAndPrice(Page<Book> page, double min, double max) {
+        String sqlCount = "select count(*) from books WHERE price between ? AND ? ";
+        int count = Integer.parseInt(this.getSingleValue(sqlCount,min,max) + "");//因为当遇到oeject为null时，调用toString()方法会报nullpointexception异常，而通过+”“则不会抛出异常
+        page.setTotalRecord(count);//总条数
+        String sqlData = "SELECT id,title,author,price,sales,stock,img_path FROM books WHERE price between ? AND ? LIMIT ? ,?";
+        List<Book> bookList = this.getBeanList(sqlData, min, max, (page.getPageNo() - 1) * Page.PAGE_SIZE, Page.PAGE_SIZE);
+        //list放入Page中的List<Book>中
+        page.setList(bookList);
+        return page;
+    }
 }

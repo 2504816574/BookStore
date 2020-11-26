@@ -55,4 +55,12 @@ public class BookDaoImplTest {
     }
 
 
+    @Test
+    public void getBooksByPageAndPrice() {
+        Page<Book> booksByPageAndPrice = bookDao.getBooksByPageAndPrice(new Page<>(1), 10, 20);
+        for (Book book : booksByPageAndPrice.getList()) {
+            System.out.println(book);
+
+        }
+    }
 }

@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <title>书城首页</title>
-        <%@ include file="../WEB-INF/include/base.jsp" %>
+        <%@ include file="../../WEB-INF/include/base.jsp" %>
         <script type="text/javascript">
             $(function () {
                 //实现确定按钮分页查询
@@ -15,21 +15,32 @@
                     //请求BookServlet
                     location = "/BookClientServlet?method=getBooksByPage&pageNo=" + pageNo;
                 });
+                //带价格区间的分页查询
+                $(".book_cond :button").click(function () {
+                    var pageNo = $("#pn_input").val();
+                    var minPrice = $("input[name='minPrice']").val();
+                    var maxPrice = $("input[name='maxPrice']").val();
+                    location = "/BookClientServlet?method=getBooksByPageAndPrice&pageNo=" + pageNo + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
+                })
+
+
             })
+
         </script>
     </head>
     <body>
         <div id="header">
             <img class="logo_img" alt="" src="static/img/logo.gif">
             <span class="wel_word">网上书城</span>
-            <jsp:include page="../WEB-INF/include/welcome.jsp"></jsp:include>
+            <jsp:include page="../../WEB-INF/include/welcome.jsp"></jsp:include>
         </div>
 
         <div id="main">
             <div id="book">
                 <div class="book_cond">
-                    价格：<input type="text" name="min"> 元 - <input type="text" name="max"> 元
-                    <button>查询</button>
+                    价格：<input type="text" name="minPrice" value="${requestScope.minPrice}"> 元 -
+                        <input type="text" name="maxPrice" value="${requestScope.maxPrice}"> 元
+                        <button>查询</button>
                 </div>
                 <div style="text-align: center">
                     <span>您的购物车中有3件商品</span>
@@ -41,7 +52,7 @@
                 <c:forEach items="${requestScope.page.list}" var="book">
                     <div class="b_list">
                         <div class="img_div">
-                            <img class="book_img" alt="" src="static/img/default.jpg"/>
+                            <img class="book_img" alt="" src="../../static/img/default.jpg"/>
                         </div>
                         <div class="book_info">
                             <div class="book_name">
@@ -102,7 +113,7 @@
                         【${i}】
                     </c:if>
                     <c:if test="${page.pageNo != i }">
-                        <a href="/BookClientServlet?method=getBooksByPage&pageNo=${i}">${i}</a>
+                        <a href="/BookClientServlet?method=getBooksByPageAndPrice&pageNo=${i}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}">${i }</a>
                     </c:if>
                 </c:forEach>
                 共${requestScope.page.totalPageNo}页，${requestScope.page.totalRecord}条记录 &nbsp 到第 &nbsp

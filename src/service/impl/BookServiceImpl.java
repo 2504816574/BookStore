@@ -46,4 +46,33 @@ public class BookServiceImpl implements BookService {
         return bookDao.getBooksByPage(new Page<>(pageNo == null ? 1 : Integer.parseInt(pageNo)));
 
     }
+
+    @Override
+    public Page<Book> getBooksByPageAndPrice(String pageNo, String min, String max) {
+        int pNo = 1;
+        try {
+            pNo = Integer.parseInt(pageNo);
+        } catch (NumberFormatException e) {
+            //e.printStackTrace();
+        }
+        //处理min，max
+        double minEnd = 0;
+        double maxEnd = Double.MAX_VALUE;
+        try {
+            minEnd = Double.parseDouble(min);
+            maxEnd = Double.parseDouble(max);
+            //交换值 用户输入数据前大后小
+            double temp = 0;
+            if (minEnd > maxEnd) {
+                temp = minEnd;
+                minEnd = maxEnd;
+                maxEnd = temp;
+            }
+        } catch (NumberFormatException e) {
+            //e.printStackTrace();
+        }
+        return bookDao.getBooksByPageAndPrice(new Page<>(pNo), minEnd, maxEnd);
+    }
+
+
 }
