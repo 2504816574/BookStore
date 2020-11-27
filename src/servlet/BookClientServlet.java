@@ -57,8 +57,6 @@ public class BookClientServlet extends BaseServlet {
         Page<Book> booksByPage = bookService.getBooksByPageAndPrice(pageNo, minPrice, maxPrice);
         //存放到域中
         request.setAttribute("page", booksByPage);
-        request.setAttribute("minPrice", minPrice);
-        request.setAttribute("maxPrice", maxPrice);
         //跳转到book_client.jsp
         request.getRequestDispatcher("pages/client/book_client.jsp").forward(request, response);
 

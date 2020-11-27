@@ -38,8 +38,8 @@
         <div id="main">
             <div id="book">
                 <div class="book_cond">
-                    价格：<input type="text" name="minPrice" value="${requestScope.minPrice}"> 元 -
-                        <input type="text" name="maxPrice" value="${requestScope.maxPrice}"> 元
+                    价格：<input type="text" name="minPrice" value="${param.minPrice}"> 元 -
+                        <input type="text" name="maxPrice" value="${param.maxPrice}"> 元
                         <button>查询</button>
                 </div>
                 <div style="text-align: center">
