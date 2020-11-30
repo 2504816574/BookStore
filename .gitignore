@@ -58,3 +58,4 @@ out/production/BookStore/servlet/
 out/production/BookStore/until/
 out/production/BookStore/web/
 out/test/
+/src/test/
