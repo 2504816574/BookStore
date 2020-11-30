@@ -83,4 +83,16 @@ public class UserServlet extends BaseServlet {
 
         }
     }
+
+    /**
+     * 注销
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().removeAttribute("user");
+        response.sendRedirect(request.getContextPath() + "index.jsp");
+    }
 }
