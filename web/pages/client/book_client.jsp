@@ -113,7 +113,7 @@
                         【${i}】
                     </c:if>
                     <c:if test="${page.pageNo != i }">
-                        <a href="/BookClientServlet?method=getBooksByPageAndPrice&pageNo=${i}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}">${i }</a>
+                        <a href="${pageContext.request.contextPath}/BookClientServlet?method=getBooksByPageAndPrice&pageNo=${i}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}">${i }</a>
                     </c:if>
                 </c:forEach>
                 共${requestScope.page.totalPageNo}页，${requestScope.page.totalRecord}条记录 &nbsp 到第 &nbsp

@@ -42,7 +42,7 @@ public class UserServlet extends BaseServlet {
         } else {
 
             //成功，请求重定向到登录成功页面
-            session.setAttribute("user",user);
+            session.setAttribute("user", user);
             response.sendRedirect(request.getContextPath() + "/pages/user/login_success.jsp");
 
 
@@ -58,34 +58,47 @@ public class UserServlet extends BaseServlet {
      * @throws IOException
      */
     protected void regist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         //取用户名值
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
+        //获取验证码
+        String code = request.getParameter("code");
+        //获取session域中的验证码文本
+        String code2 = session.getAttribute("KAPTCHA_SESSION_KEY").toString();
 
-        //调用service中的方法,判断用户名是否存在
-        boolean isUserExist = userService.checkUserName(username);
-        if (isUserExist) {
+        if (code2 != null && code2.equals(code)) {
+            //调用service中的方法,判断用户名是否存在
+            boolean isUserExist = userService.checkUserName(username);
+            if (isUserExist) {
+                //标记，域中存放数据
+                request.setAttribute("msg", "用户名已存在！");
+                //用户名存在，转发
+                request.getRequestDispatcher("/pages/user/regist.jsp").forward(request, response);
+            } else {
+                //用户名不存在,saveUser();
+                boolean isSave = userService.saveUser(new User(null, username, password, email));
+                if (isSave) {//如果注册成功
+                    //重定向到注册成功页面
+                    response.sendRedirect(request.getContextPath() + "/pages/user/regist_success.jsp");
+                } else {
+                    //保存失败，转发
+                    request.getRequestDispatcher("/pages/user/regist.jsp").forward(request, response);
+                }
+
+            }
+        }else {
             //标记，域中存放数据
-            request.setAttribute("msg", "用户名已存在！");
+            request.setAttribute("msg", "验证码输入错误！");
             //用户名存在，转发
             request.getRequestDispatcher("/pages/user/regist.jsp").forward(request, response);
-        } else {
-            //用户名不存在,saveUser();
-            boolean isSave = userService.saveUser(new User(null, username, password, email));
-            if (isSave) {//如果注册成功
-                //重定向到注册成功页面
-                response.sendRedirect(request.getContextPath() + "/pages/user/regist_success.jsp");
-            } else {
-                //保存失败，转发
-                request.getRequestDispatcher("/pages/user/regist.jsp").forward(request, response);
-            }
-
         }
     }
 
     /**
      * 注销
+     *
      * @param request
      * @param response
      * @throws ServletException

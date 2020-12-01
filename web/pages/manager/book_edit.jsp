@@ -28,7 +28,7 @@
         </div>
 
         <div id="main">
-            <form action="/BookServlet?method=editBook" method="post">
+            <form action="${pageContext.request.contextPath}/BookServlet?method=editBook" method="post">
                 <input type="hidden" name="id" value="${book.id}">
                 <table>
                     <tr>

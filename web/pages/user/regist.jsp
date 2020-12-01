@@ -12,7 +12,7 @@
                     //取用户名值
                     var uname = $("#username").val();
                     var regUName = /^\w{6,12}$/;
-// 			var regUName = /^[a-zA-Z0-9_-\.]{6,12}$/;
+                    //var regUName = /^[a-zA-Z0-9_-\.]{6,12}$/;
                     if (regUName.test(uname) == false) {
                         alert("用户名不合法，");
                         return false;
@@ -26,6 +26,14 @@
                     }
 
                 });
+
+                //刷新验证码
+                $("#codeImg").click(function () {
+                    //random"+Math.random() 原因：防止刷新之后和现在值相同某些浏览器不会赋值问题
+                    $(this).attr("src","code.jpg?random"+Math.random());
+
+                });
+
 
             });
         </script>
@@ -80,8 +88,9 @@
                                 <br/>
                                 <br/>
                                 <label>验证码：</label>
-                                <input class="itxt" type="text" style="width: 150px;" id="code"/>
-                                <img alt="" src="../../static/img/code.bmp" style="float: right; margin-right: 40px">
+                                <input class="itxt" type="text" style="width: 150px;" name="code" id="code"/>
+                                <!-- sessionKey:KAPTCHA_SESSION_KEY -->
+                                <img alt="" id="codeImg" src="code.jpg" style="float: right; margin-right: 40px; width:80px; height:40px;">
                                 <br/>
                                 <br/>
                                 <input type="submit" value="注册" id="sub_btn"/>

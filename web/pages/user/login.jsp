@@ -30,7 +30,7 @@
 								<c:if test="${not empty requestScope.msg}"><span class="errorMsg">${requestScope.msg}</span></c:if>
 							</div>
 							<div class="form">
-								<form action="/UserServlet?method=login" method="post">
+								<form action="${pageContext.request.contextPath}/UserServlet?method=login" method="post">
 									<label>用户名称：</label>
 									<input class="itxt" type="text" placeholder="请输入用户名" autocomplete="off" tabindex="1" name="username" />
 									<br />
