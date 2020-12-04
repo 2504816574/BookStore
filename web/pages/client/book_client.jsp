@@ -21,7 +21,15 @@
                     var minPrice = $("input[name='minPrice']").val();
                     var maxPrice = $("input[name='maxPrice']").val();
                     location = "/BookClientServlet?method=getBooksByPageAndPrice&pageNo=" + pageNo + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
-                })
+                });
+                //加入购物车
+                $(".book_add button").click(function () {
+                    //获取bookid
+                    var bookid = $(this).attr("id");
+                    //servlet
+                    location = "/CartServlet?method=addBookToCart&bookId=" + bookid;
+
+                });
 
 
             })
@@ -30,22 +38,31 @@
     </head>
     <body>
         <div id="header">
-            <img class="logo_img" alt="" src="static/img/logo.gif">
+            <img class="logo_img" alt="" src="../../static/img/logo.gif">
             <span class="wel_word">网上书城</span>
-            <jsp:include page="../../WEB-INF/include/welcome.jsp"></jsp:include>
+            <%@ include file="../../WEB-INF/include/welcome.jsp" %>
         </div>
 
         <div id="main">
             <div id="book">
                 <div class="book_cond">
                     价格：<input type="text" name="minPrice" value="${param.minPrice}"> 元 -
-                        <input type="text" name="maxPrice" value="${param.maxPrice}"> 元
-                        <button>查询</button>
+                    <input type="text" name="maxPrice" value="${param.maxPrice}"> 元
+                    <button>查询</button>
                 </div>
                 <div style="text-align: center">
-                    <span>您的购物车中有3件商品</span>
+                    <c:if test="${not empty sessionScope.cart.totalCount && sessionScope.cart.totalCount != 0 }">
+                        <span>您的购物车中有${sessionScope.cart.totalCount }件商品</span>
+                    </c:if>
                     <div>
-                        您刚刚将<span style="color: red">时间简史</span>加入到了购物车中
+                        <c:if test="${not empty sessionScope.title}">
+                            您刚刚将<span style="color: red">${sessionScope.title }</span>加入到了购物车中
+                        </c:if>
+                        <c:remove var="title" scope="session"/>
+                        <c:if test="${not empty sessionScope.msg}">
+                            <span style="color: red">${sessionScope.msg }</span>
+                        </c:if>
+                        <c:remove var="msg" scope="session"/>
                     </div>
                 </div>
 
@@ -76,7 +93,7 @@
                                 <span class="sp2">${book.stock}</span>
                             </div>
                             <div class="book_add">
-                                <button>加入购物车</button>
+                                <button id="${book.id}">加入购物车</button>
                             </div>
                         </div>
                     </div>

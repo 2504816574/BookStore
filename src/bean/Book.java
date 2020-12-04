@@ -1,9 +1,11 @@
 package bean;
 
+import java.io.Serializable;
+
 /**
  *
  */
-public class Book {
+public class Book implements Serializable {
 
     private Integer id;
     private String title;    //书名

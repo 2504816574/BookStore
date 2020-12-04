@@ -1,8 +1,9 @@
 package bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Page<T> {
+public class Page<T> implements Serializable {
 
 
     //   5/19
