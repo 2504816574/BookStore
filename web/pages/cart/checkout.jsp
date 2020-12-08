@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@include file="../../WEB-INF/include/base.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>结算页面</title>
-<%@ include file="../../WEB-INF/include/base.jsp"%>
 <style type="text/css">
 	h1 {
 		text-align: center;
@@ -17,12 +17,12 @@
 	<div id="header">
 			<img class="logo_img" alt="" src="../../static/img/logo.gif" >
 			<span class="wel_word">结算</span>
-		<jsp:include page="../WEB-INF/include/welcome.jsp"></jsp:include>
+		<jsp:include page="../../WEB-INF/include/welcome.jsp"></jsp:include>
 	</div>
 	
 	<div id="main">
 		
-		<h1>你的订单已结算，订单号为2937474382928484747</h1>
+		<h1>你的订单已结算，订单号为<span style="color: red">${sessionScope.orderId}</span> </h1>
 		
 	
 	</div>

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@include file="../../WEB-INF/include/base.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>编辑图书</title>
-        <%@ include file="../../WEB-INF/include/base.jsp" %>
         <style type="text/css">
             h1 {
                 text-align: center;

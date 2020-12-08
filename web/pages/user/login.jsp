@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="../../WEB-INF/include/base.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>尚硅谷会员登录页面</title>
-<%@ include file="../..//WEB-INF/include/base.jsp"%>
 </head>
 <body>
 		<div id="login_header">
@@ -22,7 +22,7 @@
 						<div class="login_box">
 							<div class="tit">
 								<h1>尚硅谷会员</h1>
-								<a href="/pages/user/regist.jsp">立即注册</a>
+								<a href="${pageContext.request.contextPath}/pages/user/regist.jsp">立即注册</a>
 							</div>
 							<div class="msg_cont">
 								<b></b>

@@ -50,6 +50,15 @@ public interface BookDao {
     void updateBook(Book book);
 
     /**
+     * 修改销量库存
+     *
+     * @param stock 库存
+     * @param sales 销量
+     * @param id
+     */
+    void updateBook(int stock, int sales, int id);
+
+    /**
      * 分页查询
      *
      * @param page

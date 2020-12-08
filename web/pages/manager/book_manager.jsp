@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="../../WEB-INF/include/base.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>图书管理</title>
-        <%@ include file="../../WEB-INF/include/base.jsp" %>
+
         <script type="text/javascript">
             $(function () {
                 $(".delbook").click(function () {
