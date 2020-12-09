@@ -9,7 +9,10 @@ import bean.OrderItem;
 public interface OrderItemDao {
     /**
      * 添加订单项
+     *
      * @param orderItem
      */
     void insertOrderItem(OrderItem orderItem);
+
+    void insertOrderItem(Object[][] params);
 }

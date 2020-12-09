@@ -61,6 +61,25 @@ public class BaseDao<T> {
 	}
 
 	/**
+	 * 批处理通用的增删改操作
+	 * @param sql
+	 * @param params 二维数组（一维：次数 ；二维：参数）
+	 * @return
+	 */
+	public void batchUpdate(String sql, Object[][] params) {
+		// 获取连接
+		Connection connection = JDBCUtils.getConnection();
+		int count = 0;
+		try {
+			queryRunner.batch(connection, sql, params);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtils.releaseConnection(connection);
+		}
+
+	}
+	/**
 	 * 获取一个对象
 	 * 
 	 * @param sql

@@ -59,6 +59,12 @@ public interface BookDao {
     void updateBook(int stock, int sales, int id);
 
     /**
+     * 批处理更新
+     * @param params
+     */
+    void updateBook(Object[][] params);
+
+    /**
      * 分页查询
      *
      * @param page

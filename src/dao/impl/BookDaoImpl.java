@@ -45,10 +45,28 @@ public class BookDaoImpl extends BaseDao<Book> implements BookDao {
         this.update(sql, book.getTitle(), book.getAuthor(), book.getPrice(), book.getSales(), book.getStock(), book.getId());
     }
 
+    /**
+     * 更改库存销量
+     *
+     * @param stock 库存
+     * @param sales 销量
+     * @param id
+     */
     @Override
     public void updateBook(int stock, int sales, int id) {
         String sql = "update books SET sales=?,stock=? WHERE id=?";
         this.update(sql, sales, stock, id);
+    }
+
+    /**
+     * 批处理更新
+     *
+     * @param params
+     */
+    @Override
+    public void updateBook(Object[][] params) {
+        String sql = "update books SET sales=?,stock=? WHERE id=?";
+        this.batchUpdate(sql, params);
     }
 
     @Override
