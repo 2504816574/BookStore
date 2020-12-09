@@ -1,10 +1,12 @@
 package bean;
 
+import java.io.Serializable;
+
 /**
  * @Auther Ashen One
  * @Date 2020/12/8
  */
-public class OrderItem {
+public class OrderItem implements Serializable {
 
 
     private Integer id;            // 订单项id

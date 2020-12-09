@@ -1,5 +1,6 @@
 package bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  * @Date 2020/12/8
  */
 
-public class Order {
+public class Order implements Serializable {
 
     /**
      * createOrder
