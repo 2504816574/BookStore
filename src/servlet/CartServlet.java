@@ -2,6 +2,7 @@ package servlet;
 
 import bean.Book;
 import bean.Cart;
+import com.google.gson.Gson;
 import service.BookService;
 import service.impl.BookServiceImpl;
 
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Auther Ashen One
@@ -75,7 +78,20 @@ public class CartServlet extends BaseServlet {
             cart.updateCartItemCount(bookId, count);
         }
         //跳转
-        response.sendRedirect(request.getContextPath() + "/pages/cart/cart.jsp");
+        // response.sendRedirect(request.getContextPath() + "/pages/cart/cart.jsp");
+        //携带数据相应（回调函数）
+        int totalCount = cart.getTotalCount();
+        double totalAmount = cart.getTotalAmount();
+        double amount = cart.getMap().get(bookId).getAmount();
+        Map<String, Object> map = new HashMap<>();
+        map.put("totalCount",totalCount);
+        map.put("totalAmount",totalAmount);
+        map.put("amount",amount);
+        //数据封装未JsonString
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(map);
+        //响应
+        response.getWriter().write(jsonStr);
     }
 
     /**

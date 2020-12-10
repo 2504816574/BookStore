@@ -31,9 +31,20 @@
                         $(this).val(dValue);
                         return false;
                     }
-
+                    var $amountTr = $(this).parent().next().next();
                     //调用CartServlet
-                    location = "/CartServlet?method=updateCartItemCount&bookId=" + bookId + "&count=" + count;
+                    // location = "/CartServlet?method=updateCartItemCount&bookId=" + bookId + "&count=" + count;
+                    //Ajax异步请求
+                    $.getJSON("/CartServlet?method=updateCartItemCount", {
+                        "bookId": bookId,
+                        "count": count
+                    }, function (jsonObj) {
+                        $(".b_count").html(jsonObj.totalCount);
+                        $(".b_price").html(jsonObj.totalAmount);
+                        $amountTr.html(jsonObj.amount);
+
+
+                    })
                 });
             });
         </script>
@@ -70,7 +81,9 @@
                             </td>
                             <td>${cartItem.book.price}</td>
                             <td>${cartItem.amount}</td>
-                            <td><a href="${pageContext.request.contextPath}/CartServlet?method=delCartItem&bookId=${cartItem.book.id }">删除</a></td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/CartServlet?method=delCartItem&bookId=${cartItem.book.id }">删除</a>
+                            </td>
                         </tr>
                     </c:forEach>
                 </table>
