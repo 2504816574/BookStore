@@ -107,8 +107,8 @@ public class BookServlet extends BaseServlet {
 
         //取值
         String id = request.getParameter("id");
-        String title = new String(request.getParameter("title").getBytes("iso-8859-1"), "utf-8");
-        String author = new String(request.getParameter("author").getBytes("iso-8859-1"), "utf-8");
+        String title = request.getParameter("title");
+        String author = request.getParameter("author");
         String price = request.getParameter("price");
         String sales = request.getParameter("sales");
         String stock = request.getParameter("stock");
