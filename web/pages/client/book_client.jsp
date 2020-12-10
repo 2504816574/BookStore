@@ -12,8 +12,10 @@
                 $("#sub_page").click(function () {
                     //取pageNo值
                     var pageNo = $("#pn_input").val();
+                    var minPrice = $("input[name='minPrice']").val();
+                    var maxPrice = $("input[name='maxPrice']").val();
                     //请求BookServlet
-                    location = "/BookClientServlet?method=getBooksByPage&pageNo=" + pageNo;
+                    location = "/BookClientServlet?method=getBooksByPageAndPrice&pageNo=" + pageNo + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
                 });
                 //带价格区间的分页查询
                 $(".book_cond :button").click(function () {

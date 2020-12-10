@@ -30,6 +30,7 @@
         <div id="header">
             <img class="logo_img" alt="" src="../../static/img/logo.gif">
             <span class="wel_word">图书管理系统</span>
+            <%@include file="../../WEB-INF/include/header.jsp" %>
 
         </div>
 
@@ -62,7 +63,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td><a href="pages/manager/book_edit.jsp">添加图书</a></td>
+                    <td><a href="../../pages/manager/book_edit.jsp">添加图书</a></td>
                 </tr>
             </table>
             <br><br><%--防止分页紧贴--%>
@@ -83,7 +84,7 @@
                 <c:if test="${requestScope.page.pageNo != requestScope.page.totalPageNo}">
                     <a href="${pageContext.request.contextPath}/BookServlet?method=getBooksByPage&pageNo=${requestScope.page.totalPageNo}">末页</a> &nbsp
                 </c:if>
-                共${requestScope.page.totalPageNo}页，${requestScope.page.totalRecord}条记录 &nbsp 到第 &nbsp <input value="1" name="pn" id="pn_input"/> &nbsp
+                共${requestScope.page.totalPageNo}页，${requestScope.page.totalRecord}条记录 &nbsp 到第 &nbsp <input value="${requestScope.page.pageNo}" name="pn" id="pn_input"/> &nbsp
                 页 &nbsp<input id="sub_page" type="button" value="确定">
             </div>
         </div>
