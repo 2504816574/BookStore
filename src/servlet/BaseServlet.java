@@ -22,8 +22,10 @@ public class BaseServlet extends HttpServlet {
             method1.invoke(this, request, response);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            throw new RuntimeException(e);
         }
+
 
     }
 

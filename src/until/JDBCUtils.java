@@ -15,6 +15,7 @@ import com.alibaba.druid.pool.DruidDataSourceFactory;
  */
 public class JDBCUtils {
     private static DataSource dataSource;
+    private static ThreadLocal<Connection> threadLocal = new InheritableThreadLocal<>();
 
     static {
         try {
@@ -31,10 +32,28 @@ public class JDBCUtils {
     }
 
     //获取连接
+    // public static Connection getConnection() {
+    //     Connection connection = null;
+    //     try {
+    //         connection = dataSource.getConnection();
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+    //     return connection;
+    // }
+
+    /**
+     * 获取连接
+     *
+     * @return
+     */
     public static Connection getConnection() {
-        Connection connection = null;
+        Connection connection = threadLocal.get();
         try {
-            connection = dataSource.getConnection();
+            if (connection == null) {
+                connection = dataSource.getConnection();
+                threadLocal.set(connection);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -42,10 +61,25 @@ public class JDBCUtils {
     }
 
     //释放连接
-    public static void releaseConnection(Connection connection) {
+    // public static void releaseConnection(Connection connection) {
+    //     if (connection != null) {
+    //         try {
+    //             connection.close();
+    //         } catch (SQLException e) {
+    //             e.printStackTrace();
+    //         }
+    //     }
+    // }
+
+    /**
+     * 释放连接
+     */
+    public static void releaseConnection() {
+        Connection connection = threadLocal.get();
         if (connection != null) {
             try {
                 connection.close();
+                threadLocal.remove();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
