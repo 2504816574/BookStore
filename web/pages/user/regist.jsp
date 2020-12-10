@@ -30,9 +30,24 @@
                 //刷新验证码
                 $("#codeImg").click(function () {
                     //random"+Math.random() 原因：防止刷新之后和现在值相同某些浏览器不会赋值问题
-                    $(this).attr("src","code.jpg?random"+Math.random());
+                    $(this).attr("src", "code.jpg?random" + Math.random());
 
                 });
+
+                $("#username").change(function () {
+                    //获取username的值
+                    var username = $(this).val();
+                    $.get("/UserServlet?method=checkUsername", {"username": username}, function (msg) {
+                        // ajax异步请求
+                        // $(".errorMsg").html(msg);
+                        if ($.trim(msg) === "true") {
+                            $(".errorMsg").html("用户名已存在，请重新输入！").css("color","red");
+                        }else {
+                            $(".errorMsg").html("用户名可用！").css("color","green");
+                        }
+                    })
+
+                })
 
 
             });
@@ -66,7 +81,7 @@
                             <span class="errorMsg">${requestScope.msg}</span>
                         </div>
                         <div class="form">
-                            <form action="/UserServlet?method=regist" method="post">
+                            <form action="${pageContext.request.contextPath}/UserServlet?method=regist" method="post">
                                 <label>用户名称：</label>
                                 <input class="itxt" type="text" placeholder="请输入用户名" autocomplete="off" tabindex="1"
                                        name="username" id="username" value="${param.username}"/>
@@ -90,7 +105,8 @@
                                 <label>验证码：</label>
                                 <input class="itxt" type="text" style="width: 150px;" name="code" id="code"/>
                                 <!-- sessionKey:KAPTCHA_SESSION_KEY -->
-                                <img alt="" id="codeImg" src="code.jpg" style="float: right; margin-right: 40px; width:80px; height:40px;">
+                                <img alt="" id="codeImg" src="code.jpg"
+                                     style="float: right; margin-right: 40px; width:80px; height:40px;">
                                 <br/>
                                 <br/>
                                 <input type="submit" value="注册" id="sub_btn"/>

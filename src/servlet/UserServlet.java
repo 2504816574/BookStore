@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
 /**
@@ -107,5 +108,25 @@ public class UserServlet extends BaseServlet {
     protected void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().removeAttribute("user");
         response.sendRedirect(request.getContextPath() + "index.jsp");
+    }
+
+    /**
+     * 检查用户名是否存在
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void checkUsername(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PrintWriter writer = response.getWriter();
+        String username = request.getParameter("username");
+        boolean isUserExist = userService.checkUserName(username);
+        // if (isUserExist){
+        //     //用户名存在
+        //     writer.write("用户名已存在，请重新输入！");
+        // }else {
+        //     writer.write("用户名可用！");
+        // }
+        writer.print(isUserExist);
     }
 }
