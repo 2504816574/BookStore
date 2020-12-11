@@ -1,6 +1,7 @@
 package servlet;
 
 import bean.Cart;
+import bean.Order;
 import bean.User;
 import dao.OrderDao;
 import service.OrderService;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @Auther Ashen One
@@ -32,6 +34,16 @@ public class OrderServlet extends BaseServlet {
         session.setAttribute("orderId", orderId);
         //跳转
         response.sendRedirect(request.getContextPath() + "/pages/cart/checkout.jsp");
+
+    }
+    protected void getOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user =(User) session.getAttribute("user");
+        List<Order> orders = orderService.getOrdersByUserId(user.getId());
+        request.setAttribute("orders",orders);
+        //请求转发到订单管理页面
+        request.getRequestDispatcher("pages/manager/book_manager.jsp").forward(request, response);
+
 
     }
 

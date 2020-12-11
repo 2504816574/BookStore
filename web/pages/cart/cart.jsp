@@ -6,48 +6,7 @@
         <meta charset="UTF-8">
         <title>购物车</title>
 
-        <script type="text/javascript">
-            $(function () {
-                $(".cartItemCount").change(function () {
-                    //获取默认值
-                    var dValue = this.defaultValue;
-                    //获取bookId
-                    var bookId = $(this).attr("id");
-                    //获取库存
-                    var stock = $(this).attr("name");
-                    //获取输入数量
-                    var count = $(this).val();
-                    //定义正则规则（非零的正整数）
-                    var countReg = /^\+?[1-9][0-9]*$/;
-                    if (!countReg.test(count)) {
-                        alert("购买数量输入有误，请重新输入！（非零的正整数）");
-                        $(this).val(dValue);
-                        return false;
-                    }
-                    //验证库存
-// 			        alert("countType:"+typeof(parseInt(count)));
-                    if (parseInt(count) > parseInt(stock)) {
-                        alert("库存不足，库存只剩" + stock + "件商品啦！");
-                        $(this).val(dValue);
-                        return false;
-                    }
-                    var $amountTr = $(this).parent().next().next();
-                    //调用CartServlet
-                    // location = "/CartServlet?method=updateCartItemCount&bookId=" + bookId + "&count=" + count;
-                    //Ajax异步请求
-                    $.getJSON("/CartServlet?method=updateCartItemCount", {
-                        "bookId": bookId,
-                        "count": count
-                    }, function (jsonObj) {
-                        $(".b_count").html(jsonObj.totalCount);
-                        $(".b_price").html(jsonObj.totalAmount);
-                        $amountTr.html(jsonObj.amount);
 
-
-                    })
-                });
-            });
-        </script>
     </head>
     <body>
 
@@ -101,8 +60,50 @@
 
         <div id="bottom">
 		<span>
-			尚硅谷书城.Copyright &copy;2015
+			书城.Copyright &copy;2020
 		</span>
         </div>
     </body>
+    <script type="text/javascript">
+        $(function () {
+            $(".cartItemCount").change(function () {
+                //获取默认值
+                var dValue = this.defaultValue;
+                //获取bookId
+                var bookId = $(this).attr("id");
+                //获取库存
+                var stock = $(this).attr("name");
+                //获取输入数量
+                var count = $(this).val();
+                //定义正则规则（非零的正整数）
+                var countReg = /^\+?[1-9][0-9]*$/;
+                if (!countReg.test(count)) {
+                    alert("购买数量输入有误，请重新输入！（非零的正整数）");
+                    $(this).val(dValue);
+                    return false;
+                }
+                //验证库存
+// 			        alert("countType:"+typeof(parseInt(count)));
+                if (parseInt(count) > parseInt(stock)) {
+                    alert("库存不足，库存只剩" + stock + "件商品啦！");
+                    $(this).val(dValue);
+                    return false;
+                }
+                var $amountTr = $(this).parent().next().next();
+                //调用CartServlet
+                // location = "/CartServlet?method=updateCartItemCount&bookId=" + bookId + "&count=" + count;
+                //Ajax异步请求
+                $.getJSON("/CartServlet?method=updateCartItemCount", {
+                    "bookId": bookId,
+                    "count": count
+                }, function (jsonObj) {
+                    $(".b_count").html(jsonObj.totalCount);
+                    $(".b_price").html(jsonObj.totalAmount);
+                    $amountTr.html(jsonObj.amount);
+
+
+                })
+            });
+        });
+    </script>
 </html>

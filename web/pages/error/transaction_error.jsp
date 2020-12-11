@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
-      <title>事务异常跳转界面</title>
+      <title>异常跳转界面</title>
     </head>
     <body>
         <h1 style="text-align: center">操作异常，请联系管理员Ashen One：2504816574@qq.com</h1>

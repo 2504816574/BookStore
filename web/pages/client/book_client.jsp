@@ -6,37 +6,6 @@
         <meta charset="UTF-8">
 
         <title>书城首页</title>
-        <script type="text/javascript">
-            $(function () {
-                //实现确定按钮分页查询
-                $("#sub_page").click(function () {
-                    //取pageNo值
-                    var pageNo = $("#pn_input").val();
-                    var minPrice = $("input[name='minPrice']").val();
-                    var maxPrice = $("input[name='maxPrice']").val();
-                    //请求BookServlet
-                    location = "/BookClientServlet?method=getBooksByPageAndPrice&pageNo=" + pageNo + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
-                });
-                //带价格区间的分页查询
-                $(".book_cond :button").click(function () {
-                    var pageNo = $("#pn_input").val();
-                    var minPrice = $("input[name='minPrice']").val();
-                    var maxPrice = $("input[name='maxPrice']").val();
-                    location = "/BookClientServlet?method=getBooksByPageAndPrice&pageNo=" + pageNo + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
-                });
-                //加入购物车
-                $(".book_add button").click(function () {
-                    //获取bookid
-                    var bookid = $(this).attr("id");
-                    //servlet
-                    location = "/CartServlet?method=addBookToCart&bookId=" + bookid;
-
-                });
-
-
-            })
-
-        </script>
     </head>
     <body>
         <div id="header">
@@ -142,8 +111,39 @@
         </div>
         <div id="bottom">
             <span>
-                尚硅谷书城.Copyright &copy;2015
+                书城.Copyright &copy;2020
             </span>
         </div>
     </body>
+    <script type="text/javascript">
+        $(function () {
+            //实现确定按钮分页查询
+            $("#sub_page").click(function () {
+                //取pageNo值
+                var pageNo = $("#pn_input").val();
+                var minPrice = $("input[name='minPrice']").val();
+                var maxPrice = $("input[name='maxPrice']").val();
+                //请求BookServlet
+                location = "/BookClientServlet?method=getBooksByPageAndPrice&pageNo=" + pageNo + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
+            });
+            //带价格区间的分页查询
+            $(".book_cond :button").click(function () {
+                var pageNo = $("#pn_input").val();
+                var minPrice = $("input[name='minPrice']").val();
+                var maxPrice = $("input[name='maxPrice']").val();
+                location = "/BookClientServlet?method=getBooksByPageAndPrice&pageNo=" + pageNo + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
+            });
+            //加入购物车
+            $(".book_add button").click(function () {
+                //获取bookid
+                var bookid = $(this).attr("id");
+                //servlet
+                location = "/CartServlet?method=addBookToCart&bookId=" + bookid;
+
+            });
+
+
+        })
+
+    </script>
 </html>

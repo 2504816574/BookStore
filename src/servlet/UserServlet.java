@@ -33,7 +33,8 @@ public class UserServlet extends BaseServlet {
         HttpSession session = request.getSession();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        User user = userService.getUser(new User(null, username, password, null));
+
+        User user = userService.getUser(new User(null, username, password, null,null));
         if (user == null) {
             //标记，在request域中存放数据
             request.setAttribute("msg", "用户名或密码有误，请重新输入！");
@@ -64,6 +65,9 @@ public class UserServlet extends BaseServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
+        String isadmin = request.getParameter("isadmin");
+        int admin=isadmin==null?0:1;//选中1 否则 0
+
         //获取验证码
         String code = request.getParameter("code");
         //获取session域中的验证码文本
@@ -79,7 +83,7 @@ public class UserServlet extends BaseServlet {
                 request.getRequestDispatcher("/pages/user/regist.jsp").forward(request, response);
             } else {
                 //用户名不存在,saveUser();
-                boolean isSave = userService.saveUser(new User(null, username, password, email));
+                boolean isSave = userService.saveUser(new User(null, username, password, email,admin));
                 if (isSave) {//如果注册成功
                     //重定向到注册成功页面
                     response.sendRedirect(request.getContextPath() + "/pages/user/regist_success.jsp");

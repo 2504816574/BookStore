@@ -5,25 +5,6 @@
     <head>
         <meta charset="UTF-8">
         <title>图书管理</title>
-
-        <script type="text/javascript">
-            $(function () {
-                $(".delbook").click(function () {
-                    // var title=$(this).parents("tr").children().html();
-                    var title = $(this).attr("id");
-                    if (confirm("确定删除《" + title + "》吗？") === false) {
-                        return false;
-                    }
-                })
-                //实现确定按钮分页查询
-                $("#sub_page").click(function () {
-                    //取pageNo值
-                    var pageNo = $("#pn_input").val();
-                    //请求BookServlet
-                    location = "BookServlet?method=getBooksByPage&pageNo=" + pageNo;
-                });
-            })
-        </script>
     </head>
     <body>
 
@@ -91,8 +72,26 @@
 
         <div id="bottom">
 		<span>
-			尚硅谷书城.Copyright &copy;2020
+			书城.Copyright &copy;2020
 		</span>
         </div>
     </body>
+    <script type="text/javascript">
+        $(function () {
+            $(".delbook").click(function () {
+                // var title=$(this).parents("tr").children().html();
+                var title = $(this).attr("id");
+                if (confirm("确定删除《" + title + "》吗？") === false) {
+                    return false;
+                }
+            })
+            //实现确定按钮分页查询
+            $("#sub_page").click(function () {
+                //取pageNo值
+                var pageNo = $("#pn_input").val();
+                //请求BookServlet
+                location = "BookServlet?method=getBooksByPage&pageNo=" + pageNo;
+            });
+        })
+    </script>
 </html>

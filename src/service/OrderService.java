@@ -1,7 +1,10 @@
 package service;
 
 import bean.Cart;
+import bean.Order;
 import bean.User;
+
+import java.util.List;
 
 /**
  * @Auther Ashen One
@@ -20,5 +23,12 @@ public interface OrderService {
      * @return
      */
     String createOrder(Cart cart, User user);
+
+    /**
+     * 通过UserId查订单
+     * @param id
+     * @return
+     */
+    List<Order> getOrdersByUserId(int id);
 
 }
